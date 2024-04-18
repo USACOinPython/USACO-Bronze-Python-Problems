@@ -1,0 +1,16 @@
+# importing tools to solve problem easier using existing functions
+from itertools import permutations
+
+# Read input
+s = input().strip()
+
+# Generate all permutations of the string
+perms = set(permutations(s))
+
+# Sort the permutations alphabetically
+perms = sorted([''.join(perm) for perm in perms])
+
+# Print the number of permutations and the permutations themselves
+print(len(perms))
+for perm in perms:
+    print(perm)
