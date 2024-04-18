@@ -1,0 +1,61 @@
+def max_speeding(N, M, road_segments, bessie_segments):
+    """
+    Function to determine the maximum amount over the speed limit that Bessie travels during any part of her journey.
+
+    Args:
+    - N (int): Number of road segments.
+    - M (int): Number of segments in Bessie's journey.
+    - road_segments (list): List of tuples containing (length, speed limit) for each road segment.
+    - bessie_segments (list): List of tuples containing (length, speed) for each segment in Bessie's journey.
+
+    Returns:
+    - int: Maximum amount over the speed limit Bessie drove during any part of her journey.
+    """
+
+    # Initialize variables to keep track of maximum speed limit violation
+    max_violation = 0
+
+    # Initialize variables to keep track of distance traveled and speed limit for current road segment
+    current_road_index = 0
+    current_road_distance = road_segments[0][0]
+    current_speed_limit = road_segments[0][1]
+
+    # Iterate over each segment in Bessie's journey
+    for bessie_length, bessie_speed in bessie_segments:
+        # Check if the current Bessie segment extends beyond the current road segment
+        while bessie_length > current_road_distance:
+            # Calculate the violation based on the speed limit of the current road segment
+            violation = max(0, bessie_speed - current_speed_limit)
+            # Update max_violation if this segment's violation is higher
+            max_violation = max(max_violation, violation)
+
+            # Move to the next road segment
+            bessie_length -= current_road_distance
+            current_road_index += 1
+            current_road_distance = road_segments[current_road_index][0]
+            current_speed_limit = road_segments[current_road_index][1]
+
+        # Calculate the violation based on the speed limit of the current road segment
+        violation = max(0, bessie_speed - current_speed_limit)
+        # Update max_violation if this segment's violation is higher
+        max_violation = max(max_violation, violation)
+
+        # Reduce the distance of the current road segment
+        current_road_distance -= bessie_length
+
+    return max_violation
+
+# Input for the number of road segments and Bessie's segments
+N, M = map(int, input("Enter the number of road segments and Bessie's segments separated by a space: ").split())
+
+# Input for road segments
+print("Enter the length and speed limit for each road segment:")
+road_segments = [tuple(map(int, input().split())) for _ in range(N)]
+
+# Input for Bessie's segments
+print("Enter the length and speed for each segment in Bessie's journey:")
+bessie_segments = [tuple(map(int, input().split())) for _ in range(M)]
+
+# Calculate and print the maximum amount over the speed limit that Bessie drove
+max_violation = max_speeding(N, M, road_segments, bessie_segments)
+print("Maximum amount over the speed limit that Bessie drove:", max_violation)
