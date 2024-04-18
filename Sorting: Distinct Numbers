@@ -1,0 +1,23 @@
+def count_distinct(n, values):
+    """
+    Function to count the number of distinct values in the list.
+
+    Args:
+    - n (int): Number of values.
+    - values (list): List of integers.
+
+    Returns:
+    - int: Number of distinct values.
+    """
+    # Use a set to store unique values
+    distinct_values = set(values)
+    # Return the length of the set
+    return len(distinct_values)
+
+# Read input
+n = int(input())
+values = list(map(int, input().split()))
+
+# Calculate and print the number of distinct values
+distinct_count = count_distinct(n, values)
+print(distinct_count)
