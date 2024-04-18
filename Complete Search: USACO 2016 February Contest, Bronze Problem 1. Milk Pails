@@ -1,0 +1,35 @@
+def max_milk(X, Y, M):
+    """
+    Function to find the maximum amount of milk Farmer John can add to the size-M pail.
+
+    Args:
+    - X (int): Size of the smallest pail.
+    - Y (int): Size of the medium-sized pail.
+    - M (int): Required amount of milk.
+
+    Returns:
+    - int: Maximum amount of milk Farmer John can possibly add to the size-M pail.
+    """
+
+    # Initialize variables to keep track of maximum milk added
+    max_milk_added = 0
+
+    # Iterate over all possible combinations of filling the pails
+    for i in range(M // X + 1):
+        for j in range((M - i * X) // Y + 1):
+            # Calculate the amount of milk added in this combination
+            milk_added = i * X + j * Y
+
+            # Update max_milk_added if the current combination adds more milk
+            if milk_added > max_milk_added:
+                max_milk_added = milk_added
+
+    return max_milk_added
+
+# function to input values
+X, Y, M = list(map(int, input().split()))
+
+
+# Calculate and print the maximum amount of milk Farmer John can add
+max_milk_added = max_milk(X, Y, M)
+print(max_milk_added)
